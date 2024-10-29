@@ -21,20 +21,28 @@
 #
 # Print each part of the response
 #for part in parts:
-#  print(part.text)
+#  print(part.text) 
 
+#import resources
 import os
 import google.generativeai as genai
 
 print("Getting API Key...")
-GOOGLE_API_KEY = os.getenv('GOOGLE_API_KEY')
-genai.configure(api_key=GOOGLE_API_KEY)
+GOOGLE_API_KEY = os.getenv('AIzaSyC9Ci8D8JLstQyxGXqoGXXrqpldPwgcllQ')
+genai.configure(api_key='AIzaSyC9Ci8D8JLstQyxGXqoGXXrqpldPwgcllQ')
 print("If you see an error then you need to set up your API key. You can do that by going to gemini ai studio dashboard and copying it. Then paste it into the code above.")
+#check for models and list
 for m in genai.list_models():
     if 'generateContent' in m.supported_generation_methods:
         print(m.name)
-model = genai.GenerativeModel(model_name="gemini-pro")
+#set model
+model = genai.GenerativeModel(model_name="gemini-1.5-flash", system_instruction="Your name is Gummy. Your good at code. but you talk casually. your instructions are to follow whatever the user sets it as and these inital instructions",)
 print("Please ignore! this is to check gemini versions!")
+
+#clear setup screen
+print("Using model: " + model.model_name)
+print("System instructions: " + model._system_instruction)
+os.system("clear")
 print(
     "----------------------------------------------------------------------------------------"
 )
@@ -62,66 +70,4 @@ while True:
         print("Gemini:"), print(part.text)
         print("----------------------------------------------------------------------------------------")
         print()
-#
-#
-#
-#
-#
-#import os
-#import google.generativeai as genai
-#import json
-#import subprocess
-#
-## Get the Replit environment URL
-#replit_url = os.environ['REPL_SLUG']
-#
-## Your API key (replace this with your actual key)
-#GOOGLE_API_KEY = os.environ.get('GOOGLE_API_KEY')
-#
-#genai.configure(api_key=GOOGLE_API_KEY)
-#
-## ... (Code for listing and selecting the model, as before) ...
-#
-#model = genai.GenerativeModel(model_name="gemini-pro")
-#
-#def handle_request(request):
-#    try:
-#        data = json.loads(request.get_data())
-#        question = data['question']
-#
-#        response = model.generate_content(question)
-#        answer = ""
-#        for part in response.parts:
-#            answer += part.text + "\n"
-#
-#        return json.dumps({'answer': answer})
-#    except Exception as e:
-#        return json.dumps({'error': str(e)})
-#
-## In a real application, you'd likely use a web framework like Flask for routing
-#if __name__ == '__main__':
-#    # ... (Your code to interact with Gemini and generate responses) ...
-#
-#    # Example response:
-#    response = "This is a sample response from Gemini."
-#
-#    # ... (Handle any other requests as needed) ...
 
-#
-#        __                               __
-#   .--.\ \        .--.--.        .----.\ \
-#__/ ./ \ \ \      /  /    '       /  ./--\ \ \
-#|  \ \_/ / \ \    |  :  /`./       |  /    \ \ \
-#|  |\___/   \ \ .  |  :  ;_       |  :  _ \ \ \
-#|  :/  /---. / /, |  :    `.     |  : | \ \ \ \
-#|  :  /    / | |:  \  \  ' .    |  : \  \ \ \ \
-#|  :  \  \ /  |;   `----'   `--.|  :  \  `----'
-#|  \   \  \  /:  \             /  \   \ \
-# \   `----'   \   \         /   '----'  )
-#  `--..____,--'    `------'     __..--''
-#       ____ ____        ____   ____ ____ 
-#     .'    `.  \ `.----' .'    `.  \  `.  \
-#    /`--..  \  \  / /`--.' \    / \  \   \  \
-#   |  |  \  |  |/  / ;   \  |  | |  |   '  |
-#    \  \   \.   .'  /  \   \ \  \ |  \   /|
-#     `----'  `--'   `----'  `--' `--'  `--'
